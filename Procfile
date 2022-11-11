@@ -1,0 +1,1 @@
+web: gunicorn flightprice.wsgi --log-file -

@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-rgr_gh^-=rby)682-d&4@2o8hpmbx_-$ow_(2_ra#$@x6542g@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,12 +37,15 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
+    "django.contrib.staticfiles",
     "flightpredict",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -115,9 +118,9 @@ STATIC_URL = "static/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+STATICFILES_DIRS = [BASE_DIR / "static"]  
+STATIC_ROOT = BASE_DIR / "staticfiles" 
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage" 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
