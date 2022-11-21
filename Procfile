@@ -1,1 +1,1 @@
-web: gunicorn flightprice.wsgi --log-file -
+web: gunicorn flightprice.wsgi --log-level debug
