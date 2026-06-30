@@ -3,7 +3,8 @@ from django.http import HttpResponse
 import sklearn
 import joblib
 import pandas as pd
-
+from pathlib import Path
+    
 
 
 # def home(request):
@@ -12,7 +13,12 @@ import pandas as pd
 
 def home(request):
 
-    final_model = joblib.load('f_model.sav')
+
+
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    MODEL_PATH = BASE_DIR / "f_model.sav"
+
+    model = joblib.load(MODEL_PATH)
     
 
     if request.method == "POST":
