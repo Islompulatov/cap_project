@@ -4,7 +4,7 @@ import sklearn
 import joblib
 import pandas as pd
 from pathlib import Path
-    
+import os
 
 
 # def home(request):
@@ -13,12 +13,11 @@ from pathlib import Path
 
 def home(request):
 
-
-
-    BASE_DIR = Path(__file__).resolve().parent.parent
+    # Get the project root directory (parent of flightprice package)
+    BASE_DIR = Path(__file__).resolve().parent.parent.parent
     MODEL_PATH = BASE_DIR / "f_model.sav"
-
-    model = joblib.load(MODEL_PATH)
+    
+    final_model = joblib.load(MODEL_PATH)
     
 
     if request.method == "POST":
@@ -770,5 +769,4 @@ def home(request):
         return render(request, "index.html", {"price":prediction_text})
 
     return render(request, "index.html")
-   
-   
+
