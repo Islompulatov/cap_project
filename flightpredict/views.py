@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import sklearn
 import joblib
 import pandas as pd
-
+import os
 
 
 # def home(request):
@@ -12,7 +12,10 @@ import pandas as pd
 
 def home(request):
 
-    final_model = joblib.load('f_model.sav')
+    # Get the base directory and construct the path to the model file
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    model_path = os.path.join(BASE_DIR, 'f_model.sav')
+    final_model = joblib.load(model_path)
     
 
     if request.method == "POST":
@@ -708,55 +711,7 @@ def home(request):
     #    'arrival_city_Rome', 'arrival_city_Warsaw']]    
 
 
-        prediction=final_model.predict([[
-            Stops,
-            travel_day,
-            travel_month,
-            dep_hour,
-            dep_minute,
-            arrival_hour,
-            arrival_minute,
-            duration_hours,
-            duration_minute,
-            Ryanair,
-            Lufthansa,
-            easyJet,
-            Vueling,
-            KLM,
-            LOT,    
-            British_Airways,
-            Iberia,
-            Norwegian,
-            SWISS,
-            Austrian_Airlines,
-            Wizz_Air,
-            Eurowings,             
-            Air_France,           
-            ITA_Airways,          
-            Finnair,             
-            Transavia_France,       
-            Multiple_Airlines,     
-            Smartwings,        
-            Air_Europa,
-            s_Warsaw,
-            s_Oslo,
-            s_Prague,
-            s_Berlin,
-            s_Rome,
-            s_Amsterdam,
-            s_Paris,
-            s_Barcelona,
-            s_London,
-            d_Warsaw,
-            d_Oslo,
-            d_Prague,
-            d_Berlin,
-            d_Rome,
-            d_Amsterdam,
-            d_Paris,
-            d_Barcelona,
-            d_London,
-        ]])
+        prediction=final_model.predict([[\n            Stops,\n            travel_day,\n            travel_month,\n            dep_hour,\n            dep_minute,\n            arrival_hour,\n            arrival_minute,\n            duration_hours,\n            duration_minute,\n            Ryanair,\n            Lufthansa,\n            easyJet,\n            Vueling,\n            KLM,\n            LOT,    \n            British_Airways,\n            Iberia,\n            Norwegian,\n            SWISS,\n            Austrian_Airlines,\n            Wizz_Air,\n            Eurowings,             \n            Air_France,           \n            ITA_Airways,          \n            Finnair,             \n            Transavia_France,       \n            Multiple_Airlines,     \n            Smartwings,        \n            Air_Europa,\n            s_Warsaw,\n            s_Oslo,\n            s_Prague,\n            s_Berlin,\n            s_Rome,\n            s_Amsterdam,\n            s_Paris,\n            s_Barcelona,\n            s_London,\n            d_Warsaw,\n            d_Oslo,\n            d_Prague,\n            d_Berlin,\n            d_Rome,\n            d_Amsterdam,\n            d_Paris,\n            d_Barcelona,\n            d_London,\n        ]])
 
         output=round(prediction[0],2)
         prediction_text="Your Ticket Price is $ {}".format(output)
@@ -766,3 +721,4 @@ def home(request):
     return render(request, "index.html")
    
    
+
